@@ -26,3 +26,14 @@ NUM_SHIPS = 4
 TERMINAL_WIDTH = 80
 TERMINAL_HEIGHT = 24
 
+def play_game():
+    
+    print(" Welcome to 'Classic Battleship Game'")
+    print(f" Board Size: {BOARD_SIZE}. Number of ships: {NUM_SHIPS}")
+    print(" Top left corner is row: 0, col: 0")
+    print("-----------------------------------")
+
+    player_name = input("Please enter your Ingame Name: ")
+    print(f"\nWelcome, {player_name}!")
+
+play_game()
