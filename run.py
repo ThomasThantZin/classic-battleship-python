@@ -26,6 +26,18 @@ NUM_SHIPS = 4
 TERMINAL_WIDTH = 80
 TERMINAL_HEIGHT = 24
 
+# Initialize the player and computer boards
+player_board = Board(BOARD_SIZE)
+computer_board = Board(BOARD_SIZE)
+
+# Place ships on the computer board randomly
+def place_computer_ships(board):
+    for _ in range(NUM_SHIPS):
+        x, y = randint(0, BOARD_SIZE - 1), randint(0, BOARD_SIZE - 1)
+        board.place_ship(x, y)
+
+
+
 def play_game():
     
     print(" Welcome to 'Classic Battleship Game'")
