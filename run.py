@@ -89,6 +89,21 @@ def player_turn():
             return False
 
 
+# Function for the computer's turn
+def computer_turn():
+    comp_guess_x = randint(0, BOARD_SIZE - 1)
+    comp_guess_y = randint(0, BOARD_SIZE - 1)
+
+    if player_board.board[comp_guess_x][comp_guess_y] == player_board.ship_char:
+        print("Computer got a hit!")
+        player_board.board[comp_guess_x][comp_guess_y] = player_board.hit_char
+        return True
+    else:
+        print("Computer missed this time.")
+        computer_board.board[comp_guess_x][comp_guess_y] = computer_board.miss_char
+        return False
+
+
 # Main game
 def play_game():
   
@@ -121,6 +136,19 @@ def play_game():
 
     player_score = 0
     computer_score = 0
+
+    while True:
+        # Player's turn
+        player_hit = player_turn()
+        if player_hit:
+            player_score += 1
+
+        # Computer's turn
+        computer_hit = computer_turn()
+        if computer_hit:
+            computer_score += 1
+
+        display_boards(player_name)
 
 
 play_game()
