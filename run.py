@@ -36,10 +36,19 @@ def place_computer_ships(board):
         x, y = randint(0, BOARD_SIZE - 1), randint(0, BOARD_SIZE - 1)
         board.place_ship(x, y)
 
-
+# Function to randomly place the player's ships
+def place_player_ships(board):
+    print("\nRandomly placing your ships:")
+    for _ in range(NUM_SHIPS):
+        while True:
+            x = randint(0, BOARD_SIZE - 1)
+            y = randint(0, BOARD_SIZE - 1)
+            if board.board[x][y] != board.ship_char:
+                board.place_ship(x, y)
+                break
 
 def play_game():
-    
+  
     print(" Welcome to 'Classic Battleship Game'")
     print(f" Board Size: {BOARD_SIZE}. Number of ships: {NUM_SHIPS}")
     print(" Top left corner is row: 0, col: 0")
