@@ -47,9 +47,34 @@ def place_player_ships(board):
                 board.place_ship(x, y)
                 break
 
+# Check if the player's guess is valid
+def is_valid_guess(x, y):
+    return 0 <= x < BOARD_SIZE and 0 <= y < BOARD_SIZE
+
+# Display the game boards 
+def display_boards(player_name):
+    print(f"\n{player_name}'s Board:")  
+    for row in player_board.board:
+        print(" ".join(row).replace(computer_board.ship_char, player_board.water_char)) 
+
+    print("\nComputer's Board:")
+    for row in computer_board.board:
+        print(" ".join(row))
+
+
+# Main game 
 def play_game():
   
-    print(" Welcome to 'Classic Battleship Game'")
+    print("                     Welcome to 'Classic Battleship Game'")
+    
+    print("                                  ____________")
+    print("                              _  |____________|  _")
+    print("                       _=====| | |            | | |==== _")
+    print("                 =====| |.---------------------------. | |==== ")
+    print("   <--------------------'   .  .  .  .  .  .  .  .   '--------------/")
+    print("     \\                                                             /")
+    print("      \\_______________________________________________WWS_________/")
+    print("  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
     print(f" Board Size: {BOARD_SIZE}. Number of ships: {NUM_SHIPS}")
     print(" Top left corner is row: 0, col: 0")
     print("-----------------------------------")
