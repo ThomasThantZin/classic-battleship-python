@@ -35,21 +35,24 @@ computer_board = Board(BOARD_SIZE)
 
 # Place ships on the computer board randomly
 def place_computer_ships(board):
-    for _ in range(NUM_SHIPS):
+    placed_ships = 0
+    while placed_ships < NUM_SHIPS:
         x, y = randint(0, BOARD_SIZE - 1), randint(0, BOARD_SIZE - 1)
-        board.place_ship(x, y)
+        if board.board[x][y] != board.ship_char:
+            board.place_ship(x, y)
+            placed_ships += 1
 
 
 # Function to randomly place the player's ships
 def place_player_ships(board):
     print("\nRandomly placing your ships:")
-    for _ in range(NUM_SHIPS):
-        while True:
-            x = randint(0, BOARD_SIZE - 1)
-            y = randint(0, BOARD_SIZE - 1)
-            if board.board[x][y] != board.ship_char:
-                board.place_ship(x, y)
-                break
+    placed_ships = 0
+    while placed_ships < NUM_SHIPS:
+        x = randint(0, BOARD_SIZE - 1)
+        y = randint(0, BOARD_SIZE - 1)
+        if board.board[x][y] != board.ship_char:
+            board.place_ship(x, y)
+            placed_ships += 1
 
 
 # Check if the player's guess is valid
@@ -59,6 +62,7 @@ def is_valid_guess(x, y):
 
 # Display the game boards
 def display_boards(player_name):
+
     print(f"\n{player_name}'s Board:")
     for row in player_board.board:
         print(" ".join(row).replace(computer_board.ship_char, player_board.water_char))
