@@ -154,5 +154,8 @@ def play_game():
 
         display_boards(player_name)
 
+        print("\nAfter this round, the scores are:")
+        print(f"Player: {player_score}. Computer: {computer_score}")
+
 
 play_game()
