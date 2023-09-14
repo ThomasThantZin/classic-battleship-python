@@ -110,9 +110,7 @@ def computer_turn():
 
 # Main game
 def play_game():
-  
     print("                     Welcome to 'Classic Battleship Game'")
-    
     print("                                  ____________")
     print("                              _  |____________|  _")
     print("                       _=====| | |            | | |==== _")
@@ -157,5 +155,17 @@ def play_game():
         print("\nAfter this round, the scores are:")
         print(f"Player: {player_score}. Computer: {computer_score}")
 
+        if player_score == NUM_SHIPS:
+            print("Congratulations! You win!")
+            break
+        elif computer_score == NUM_SHIPS:
+            print("Computer has sunk all of your ships. Computer wins!")
+            break
 
-play_game()
+        play_again = input("Enter any key to continue or 'n' to quit: ")
+        if play_again.lower() == 'n':
+            return
+
+
+if __name__ == "__main__":
+    play_game()
