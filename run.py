@@ -1,9 +1,10 @@
 from random import randint
 
+
 class Board:
     def __init__(self, size):
         self.size = size
-        self.water_char = '~'  # Character for water cells
+        self.water_char = '.'  # Character for water cells
         self.hit_char = 'X'  # Character for hit cells
         self.miss_char = 'O'  # Character for miss cells
         self.ship_char = 'S'  # Character for ship cells
@@ -20,21 +21,24 @@ class Board:
         return 0 <= x < self.size and 0 <= y < self.size
 
 
-# Add board size and ship num
+# Constants
 BOARD_SIZE = 5
 NUM_SHIPS = 4
 TERMINAL_WIDTH = 80
 TERMINAL_HEIGHT = 24
 
+
 # Initialize the player and computer boards
 player_board = Board(BOARD_SIZE)
 computer_board = Board(BOARD_SIZE)
+
 
 # Place ships on the computer board randomly
 def place_computer_ships(board):
     for _ in range(NUM_SHIPS):
         x, y = randint(0, BOARD_SIZE - 1), randint(0, BOARD_SIZE - 1)
         board.place_ship(x, y)
+
 
 # Function to randomly place the player's ships
 def place_player_ships(board):
@@ -47,22 +51,24 @@ def place_player_ships(board):
                 board.place_ship(x, y)
                 break
 
+
 # Check if the player's guess is valid
 def is_valid_guess(x, y):
     return 0 <= x < BOARD_SIZE and 0 <= y < BOARD_SIZE
 
-# Display the game boards 
+
+# Display the game boards with formatting for an 80x24 terminal
 def display_boards(player_name):
-    print(f"\n{player_name}'s Board:")  
+    print(f"\n{player_name}'s Board:")  # Display player's name on their board
     for row in player_board.board:
-        print(" ".join(row).replace(computer_board.ship_char, player_board.water_char)) 
+        print(" ".join(row).replace(computer_board.ship_char, player_board.water_char))  # Hide computer's ships
 
     print("\nComputer's Board:")
     for row in computer_board.board:
         print(" ".join(row))
 
 
-# Main game 
+# Main game
 def play_game():
   
     print("                     Welcome to 'Classic Battleship Game'")
