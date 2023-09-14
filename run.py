@@ -57,15 +57,36 @@ def is_valid_guess(x, y):
     return 0 <= x < BOARD_SIZE and 0 <= y < BOARD_SIZE
 
 
-# Display the game boards with formatting for an 80x24 terminal
+# Display the game boards
 def display_boards(player_name):
-    print(f"\n{player_name}'s Board:")  # Display player's name on their board
+    print(f"\n{player_name}'s Board:")
     for row in player_board.board:
-        print(" ".join(row).replace(computer_board.ship_char, player_board.water_char))  # Hide computer's ships
+        print(" ".join(row).replace(computer_board.ship_char, player_board.water_char))
 
     print("\nComputer's Board:")
     for row in computer_board.board:
         print(" ".join(row))
+
+
+# Function for the player's turn
+def player_turn():
+    print("\nYour turn:")
+    while True:
+        guess_x = int(input("Guess a row: "))
+        guess_y = int(input("Guess a column: "))
+
+        if not is_valid_guess(guess_x, guess_y):
+            print("Invalid guess. Try again.")
+            continue
+
+        if computer_board.board[guess_x][guess_y] == computer_board.ship_char:
+            print("Player got a hit!")
+            computer_board.board[guess_x][guess_y] = computer_board.hit_char
+            return True
+        else:
+            print("Player missed this time.")
+            player_board.board[guess_x][guess_y] = player_board.miss_char
+            return False
 
 
 # Main game
@@ -87,5 +108,19 @@ def play_game():
 
     player_name = input("Please enter your Ingame Name: ")
     print(f"\nWelcome, {player_name}!")
+
+# Initialize boards for a new game
+    for i in range(BOARD_SIZE):
+        for j in range(BOARD_SIZE):
+            player_board.board[i][j] = player_board.water_char
+            computer_board.board[i][j] = computer_board.water_char
+
+    place_player_ships(player_board)
+    place_computer_ships(computer_board)
+    display_boards(player_name)
+
+    player_score = 0
+    computer_score = 0
+
 
 play_game()
