@@ -81,11 +81,6 @@ def player_turn():
             guess_y = int(guess_y)
             
             if is_valid_guess(computer_board, guess_x, guess_y):
-
-                if (guess_x, guess_y) in previous_guesses:
-                    print("You cannot enter the same guess twice. Try again.")
-                    continue
-                previous_guesses.add((guess_x, guess_y))
                 
                 if computer_board.board[guess_x][guess_y] == computer_board.ship_char:
                     print("Player got a hit!")
@@ -96,7 +91,7 @@ def player_turn():
                     computer_board.board[guess_x][guess_y] = computer_board.miss_char
                     return False
             else:
-                print("Invalid guess. Try again with numbers between 0 and 4.")
+                print("Invalid guess.")
         else:
             print("Invalid input. Please enter numeric values for row and column.")
 
