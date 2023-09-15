@@ -24,9 +24,6 @@ class Board:
 # Constants
 BOARD_SIZE = 5
 NUM_SHIPS = 4
-TERMINAL_WIDTH = 80
-TERMINAL_HEIGHT = 24
-
 
 # Initialize the player and computer boards
 player_board = Board(BOARD_SIZE)
@@ -56,20 +53,18 @@ def place_player_ships(board):
 
 
 # Check if the player's guess is valid
-def is_valid_guess(x, y):
-    return 0 <= x < BOARD_SIZE and 0 <= y < BOARD_SIZE
+def is_valid_guess(board, x, y):
+    return 0 <= x < BOARD_SIZE and 0 <= y < BOARD_SIZE and board.board[x][y] != board.hit_char and board.board[x][y] != board.miss_char
 
 
 # Display the game boards
-def display_boards(player_name):
-
+def display_boards(player_board, computer_board, player_name):
     print(f"\n{player_name}'s Board:")
-    for row in player_board.board:
-        print(" ".join(row).replace(computer_board.ship_char, player_board.water_char))
+    player_board.display()
 
     print("\nComputer's Board:")
     for row in computer_board.board:
-        print(" ".join(row))
+        print(" ".join([cell if cell != computer_board.ship_char else computer_board.water_char for cell in row]))
 
 
 # Function for the player's turn
@@ -79,7 +74,7 @@ def player_turn():
         guess_x = int(input("Guess a row: "))
         guess_y = int(input("Guess a column: "))
 
-        if not is_valid_guess(guess_x, guess_y):
+        if not is_valid_guess(computer_board, guess_x, guess_y):
             print("Invalid guess. Try again.")
             continue
 
@@ -89,23 +84,29 @@ def player_turn():
             return True
         else:
             print("Player missed this time.")
-            player_board.board[guess_x][guess_y] = player_board.miss_char
+            computer_board.board[guess_x][guess_y] = computer_board.miss_char
             return False
 
 
 # Function for the computer's turn
 def computer_turn():
-    comp_guess_x = randint(0, BOARD_SIZE - 1)
-    comp_guess_y = randint(0, BOARD_SIZE - 1)
+    while True:
+        comp_guess_x = randint(0, BOARD_SIZE - 1)
+        comp_guess_y = randint(0, BOARD_SIZE - 1)
 
-    if player_board.board[comp_guess_x][comp_guess_y] == player_board.ship_char:
-        print("Computer got a hit!")
-        player_board.board[comp_guess_x][comp_guess_y] = player_board.hit_char
-        return True
-    else:
-        print("Computer missed this time.")
-        computer_board.board[comp_guess_x][comp_guess_y] = computer_board.miss_char
-        return False
+        if player_board.board[comp_guess_x][comp_guess_y] == player_board.hit_char or \
+           player_board.board[comp_guess_x][comp_guess_y] == player_board.miss_char:
+            # Computer has already guessed this location. Try again.
+            continue
+
+        if player_board.board[comp_guess_x][comp_guess_y] == player_board.ship_char:
+            print("Computer got a hit!")
+            player_board.board[comp_guess_x][comp_guess_y] = player_board.hit_char
+            return True
+        else:
+            print("Computer missed this time.")
+            player_board.board[comp_guess_x][comp_guess_y] = player_board.miss_char
+            return False
 
 
 # Main game
@@ -126,7 +127,7 @@ def play_game():
     player_name = input("Please enter your Ingame Name: ")
     print(f"\nWelcome, {player_name}!")
 
-# Initialize boards for a new game
+    # Initialize boards for a new game
     for i in range(BOARD_SIZE):
         for j in range(BOARD_SIZE):
             player_board.board[i][j] = player_board.water_char
@@ -134,7 +135,7 @@ def play_game():
 
     place_player_ships(player_board)
     place_computer_ships(computer_board)
-    display_boards(player_name)
+    display_boards(player_board, computer_board, player_name)
 
     player_score = 0
     computer_score = 0
@@ -150,7 +151,7 @@ def play_game():
         if computer_hit:
             computer_score += 1
 
-        display_boards(player_name)
+        display_boards(player_board, computer_board, player_name)
 
         print("\nAfter this round, the scores are:")
         print(f"Player: {player_score}. Computer: {computer_score}")
