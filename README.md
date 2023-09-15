@@ -1,31 +1,42 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# Classic Battleship
 
-Welcome USER_NAME,
+Welcome to the Classic Battleship Game! This console-based Python game terminal game recreates the timeless strategy game we all know and love. In this game, you'll face off against a computer opponent, taking turns to strategically target and sink each other's battleships on a 5x5 grid.
 
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **August 17, 2021**
+You can play the game here: [Classic Battleship](https://classic-battleship-python-b7cb6f939551.herokuapp.com/)
 
-## Reminders
+![multiple devices displaying website](media/responsive.png)
 
-* Your code must be placed in the `run.py` file
-* Your dependencies must be placed in the `requirements.txt` file
-* Do not edit any of the other files or your code may not deploy properly
+## How to play
 
-## Creating the Heroku app
+- Play on a 5x5 grid, take turns guessing coordinates to sink each other's ships.
+- Players can enter their name and two boards are randomly generated
+- Players can see where their ships are, indicated by 'S' sign and players cannot see computer's ships are.
+- Guesses are marked on the board with an 'O' sign and Hits are indicated by 'X'.
+- The winner is the player who sinks all of their opponent's battleships first.
 
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
+## Features
 
-1. `heroku/python`
-2. `heroku/nodejs`
+### Existing Features
 
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
+- **Beginning of the Game**
 
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
+- Players are needed to enter their names.
+- Play against the computer
+- Both players' and computer's ships will be automatically generated.
+- The player cannot see where the computer's ships are.
 
-Connect your GitHub repository and deploy as normal.
+![Beginnign](media/intro.png)
+![Entered name](media/begin.png)
 
-## Constraints
+- **Maintains scores**
+- **Accepts user input**
+- **Press Enter to continue the game**
+- **Type 'n' to play new game**
 
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
+![Score](media/guess.png)
 
------
-Happy coding!
+- **input validation and error-checking**
+
+- You cannot enter coordinates outside the size of the grid
+- You must enter numbers.
+- You cannot enter the same guess twice

@@ -4,7 +4,7 @@ from random import randint
 class Board:
     def __init__(self, size):
         self.size = size
-        self.water_char = '.'  # Character for water cells
+        self.water_char = '~'  # Character for water cells
         self.hit_char = 'X'  # Character for hit cells
         self.miss_char = 'O'  # Character for miss cells
         self.ship_char = 'S'  # Character for ship cells
@@ -54,7 +54,8 @@ def place_player_ships(board):
 
 # Check if the player's guess is valid
 def is_valid_guess(board, x, y):
-    return 0 <= x < BOARD_SIZE and 0 <= y < BOARD_SIZE and board.board[x][y] != board.hit_char and board.board[x][y] != board.miss_char
+    return 0 <= x < BOARD_SIZE and 0 <= y < BOARD_SIZE and \
+           board.board[x][y] != board.hit_char and board.board[x][y] != board.miss_char
 
 
 # Display the game boards
@@ -71,21 +72,27 @@ def display_boards(player_board, computer_board, player_name):
 def player_turn():
     print("\nYour turn:")
     while True:
-        guess_x = int(input("Guess a row: "))
-        guess_y = int(input("Guess a column: "))
+        guess_x = input("Guess a row (0-4): ")
+        guess_y = input("Guess a column (0-4): ")
 
-        if not is_valid_guess(computer_board, guess_x, guess_y):
-            print("Invalid guess. Try again.")
-            continue
+        # Check if both inputs are numeric
+        if guess_x.isnumeric() and guess_y.isnumeric():
+            guess_x = int(guess_x)
+            guess_y = int(guess_y)
 
-        if computer_board.board[guess_x][guess_y] == computer_board.ship_char:
-            print("Player got a hit!")
-            computer_board.board[guess_x][guess_y] = computer_board.hit_char
-            return True
+            if is_valid_guess(computer_board, guess_x, guess_y):
+                if computer_board.board[guess_x][guess_y] == computer_board.ship_char:
+                    print("Player got a hit!")
+                    computer_board.board[guess_x][guess_y] = computer_board.hit_char
+                    return True
+                else:
+                    print("Player missed this time.")
+                    computer_board.board[guess_x][guess_y] = computer_board.miss_char
+                    return False
+            else:
+                print("Invalid guess. Try again with numbers between 0 and 4.")
         else:
-            print("Player missed this time.")
-            computer_board.board[guess_x][guess_y] = computer_board.miss_char
-            return False
+            print("Invalid input. Please enter numeric values for row and column.")
 
 
 # Function for the computer's turn
@@ -165,7 +172,7 @@ def play_game():
                 break
         elif computer_score == NUM_SHIPS:
             print("Computer has sunk all of your ships. Computer wins!")
-            play_again = input("Press Enter to continue or 'n' to start a new game: ")
+            play_again = input("Press Enter to quit or write 'n' to start a new game: ")
             if play_again.lower() == 'n':
                 play_game()  # Start a new game
             else:
