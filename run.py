@@ -79,8 +79,14 @@ def player_turn():
         if guess_x.isnumeric() and guess_y.isnumeric():
             guess_x = int(guess_x)
             guess_y = int(guess_y)
-
+            
             if is_valid_guess(computer_board, guess_x, guess_y):
+
+                if (guess_x, guess_y) in previous_guesses:
+                    print("You cannot enter the same guess twice. Try again.")
+                    continue
+                previous_guesses.add((guess_x, guess_y))
+                
                 if computer_board.board[guess_x][guess_y] == computer_board.ship_char:
                     print("Player got a hit!")
                     computer_board.board[guess_x][guess_y] = computer_board.hit_char
