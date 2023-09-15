@@ -158,20 +158,20 @@ def play_game():
 
         if player_score == NUM_SHIPS:
             print("Congratulations! You win!")
-            play_again = input("Enter any key to continue or 'n' to start a new game: ")
+            play_again = input("Press Enter to continue or 'n' to start a new game: ")
             if play_again.lower() == 'n':
                 play_game()  # Start a new game
             else:
                 break
         elif computer_score == NUM_SHIPS:
             print("Computer has sunk all of your ships. Computer wins!")
-            play_again = input("Enter any key to continue or 'n' to start a new game: ")
+            play_again = input("Press Enter to continue or 'n' to start a new game: ")
             if play_again.lower() == 'n':
                 play_game()  # Start a new game
             else:
                 break
         else:
-            play_again = input("Enter any key to continue or 'n' to start a new game: ")
+            play_again = input("Press Enter to continue or 'n' to start a new game: ")
             if play_again.lower() == 'n':
                 play_game()  # Start a new game
             elif not play_again:
